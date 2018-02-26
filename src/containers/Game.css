@@ -46,3 +46,24 @@
   width: 291px;
   margin: 0 auto;
 }
+
+.Game .input {
+  margin: 30px;
+  font-size: 20px;
+}
+
+.guessed h2 {
+  text-transform: uppercase;
+}
+
+#lose p {
+  color: red;
+  font-size: 50px;
+}
+
+
+#win p {
+  color: green;
+  font-size: 100px;
+  font-weight: bold;
+}

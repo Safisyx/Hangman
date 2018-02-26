@@ -1,3 +1,8 @@
 .App {
   text-align: center;
 }
+
+.title {
+  color: blue;
+  text-transform: uppercase;
+}
