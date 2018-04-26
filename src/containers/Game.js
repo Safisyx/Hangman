@@ -4,62 +4,50 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './Game.css'
 import Input from '../components/Input'
-import {words} from '../data/data'
-const word = words[Math.floor(Math.random()*words.length)]
-
-function showGuess(word, guesses) {
-  return word
-    .split('')
-    .map(char => {
-      if (guesses.includes(char)) return char;
-      return '_';
-    })
-    .join(' ')
-}
-
-function isWinner(word, guesses) {
-    let newWord = showGuess(word, guesses)
-      if (newWord.indexOf("_") === -1 ) return true;
-      return false;
-
-}
-
-function wrongGuessCount(word, guesses) {
-  let uniqueArray = (arrArg) => {
-    return arrArg.filter((elem, pos, arr) => {
-      return arr.indexOf(elem) === pos;
-    });
-  }
-  let guess=uniqueArray(guesses)
-  return guess
-    .filter(g => word.indexOf(g)===-1)
-    .length
-}
+import Button from '../components/Button'
+import Letters from '../components/Letters'
+import {createGame} from '../actions/createGame'
+import {isWinner, wrongGuessCount, showGuess} from '../lib/game'
+//const word = words[Math.floor(Math.random()*words.length)]
 
 export class Game extends PureComponent {
   static propTypes = {
-    guess: PropTypes.arrayOf(PropTypes.string)
+    guess: PropTypes.arrayOf(PropTypes.string),
+    word: PropTypes.string
   }
 
-
+  componentWillMount() {
+    this.props.createGame();
+  }
   render() {
-    if (isWinner(word,this.props.guess)) {
+
+    if (isWinner(this.props.word,this.props.guess)) {
       return (
-        <div id="win">
+        <div id="win" className='image'>
           <p>YOU WON!!!</p>
+          <div className='centralbutton'>
+             <Button label='New game'/>
+          </div>
         </div>
       )
     }
-    if (wrongGuessCount(word,this.props.guess)>=6)
+
+    if (wrongGuessCount(this.props.word,this.props.guess)>=6)
     {
       return (
         <div className="Game">
           <div className='image'>
-            <div className='im'id={`img-${wrongGuessCount(word,this.props.guess)}`}></div>
+            <div className='leftbutton'>
+               <Button label='New game'/>
+            </div>
+            <div className='im'id={`img-6`}></div>
+            <div className='rightbutton'>
+               <Button label='New game'/>
+            </div>
           </div>
           <div id="lose">
             <p>YOU LOSE!!!</p>
-            <h3>The word was "{word.toUpperCase()}"</h3>
+            <h3>{`The word was "${this.props.word.toUpperCase()}"`}</h3>
           </div>
         </div>
       )
@@ -69,15 +57,24 @@ export class Game extends PureComponent {
     return (
       <div className="Game">
         <div className='image'>
-          <div className='im' id={`img-${wrongGuessCount(word,this.props.guess)}`}></div>
+          <div className='leftbutton'>
+             <Button label='Give up'/>
+          </div>
+          <div className='im' id={`img-${wrongGuessCount(this.props.word,this.props.guess)}`}></div>
+          <div className='rightbutton'>
+             <Button label='Give up'/>
+          </div>
         </div>
         <div className='guessed'>
           <h2>
-          {showGuess(word,this.props.guess)}
+            {showGuess(this.props.word,this.props.guess)}
           </h2>
         </div>
         <div className="input">
           <Input/>
+        </div>
+        <div className='letters'>
+          <Letters/>
         </div>
       </div>
     )
@@ -86,9 +83,11 @@ export class Game extends PureComponent {
 
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
-    guess: state.guess
+    guess: state.guess,
+    word: state.word
   }
 }
 
-export default connect(mapStateToProps)(Game)
+export default connect(mapStateToProps, {createGame})(Game)

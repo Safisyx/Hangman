@@ -36,15 +36,35 @@
   height: 304px;
   width: 291px;
   position: absolute;
-  left: 0px;
+  left: 100px;
 }
 
 .Game .image{
   position: relative;
   text-align: center;
   height: 304px;
-  width: 291px;
+  width: 491px;
   margin: 0 auto;
+}
+
+.leftbutton {
+  margin: 0;
+  position: absolute;
+  left: 0px;
+  top: 75%;
+}
+
+.rightbutton {
+  margin: 0;
+  position: absolute;
+  right: 0px;
+  top: 75%;
+}
+
+.centralbutton {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
 }
 
 .Game .input {
