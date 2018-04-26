@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {guessLetter} from '../actions/action'
+import {guessLetter} from '../actions/guessLetter'
+import {letters} from '../data/data'
 import './Input.css'
 
 export class Input extends PureComponent {
@@ -12,7 +13,8 @@ export class Input extends PureComponent {
   handleChange = (e) => {
     let x = e.target.value.toLowerCase()
     //console.log(x)
-    this.props.guessLetter(x)
+    if (letters.includes(x))
+      this.props.guessLetter(x)
     e.target.value=''
   }
 

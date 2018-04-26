@@ -1,9 +1,9 @@
 import {GUESS} from './types'
 
-export const guessLetter = (text='.') => {
+export const guessLetter = (guess='.') => {
   //console.log(text)
   return {
     type: GUESS,
-    text
+    payload: guess
   }
 }
