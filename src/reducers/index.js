@@ -1,5 +1,6 @@
-import guess from './reducers'
-
+import guess from './guess'
+import word from './game'
 export default {
   guess,
+  word
 }
