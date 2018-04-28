@@ -3,6 +3,8 @@
 }
 
 .title {
-  color: blue;
+  color: black;
   text-transform: uppercase;
+  font-family: fantasy,sans-serif;
+  font-size: 40px;
 }
